@@ -7,13 +7,14 @@ import { Button, Input, Pagination, Space, Spin, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { debounce } from "lodash";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ProductModal from "./ProductModal";
 
 export default function ProductList() {
   const [page, setPage] = useState(1);
   const [limit] = useState(10);
   const [search, setSearch] = useState("");
+  const [searchInput, setSearchInput] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState<"create" | "edit">("create");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -83,14 +84,25 @@ export default function ProductList() {
     },
   ];
 
-  const handleSearch = useMemo(
-    () =>
-      debounce((value: string) => {
-        setPage(1);
-        setSearch(value);
-      }, 300),
+  const debouncedSearch = useCallback(
+    debounce((value: string) => {
+      setPage(1);
+      setSearch(value);
+    }, 500),
     []
   );
+
+  useEffect(() => {
+    return () => {
+      debouncedSearch.cancel();
+    };
+  }, [debouncedSearch]);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchInput(value);
+    debouncedSearch(value);
+  };
 
   if (isGetProducts) {
     return (
@@ -116,7 +128,13 @@ export default function ProductList() {
           <Input.Search
             placeholder="Search product by title, category or description"
             allowClear
-            onChange={(e) => handleSearch(e.target.value)}
+            value={searchInput} // ← Controlled input
+            onChange={handleSearchChange}
+            onSearch={(value) => {
+              setSearchInput(value);
+              setSearch(value);
+              setPage(1);
+            }}
             style={{ width: 350 }}
           />
         </div>
