@@ -6,7 +6,7 @@ import { EditOutlined, EyeOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Input, Pagination, Space, Spin, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { debounce } from "lodash";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import ProductModal from "./ProductModal";
 
@@ -14,7 +14,6 @@ export default function ProductList() {
   const [page, setPage] = useState(1);
   const [limit] = useState(10);
   const [search, setSearch] = useState("");
-  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState<"create" | "edit">("create");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -72,10 +71,9 @@ export default function ProductList() {
       key: "actions",
       render: (_, record) => (
         <Space>
-          <Button
-            icon={<EyeOutlined />}
-            onClick={() => router.push(`/products/${record.product_id}`)}
-          />
+          <Link href={`product/${record.product_id}`}>
+            <Button icon={<EyeOutlined />} />
+          </Link>
           <Button
             icon={<EditOutlined />}
             onClick={() => openEditModal(record)}
@@ -95,7 +93,11 @@ export default function ProductList() {
   );
 
   if (isGetProducts) {
-    return <Spin size="large" />;
+    return (
+      <div className="flex justify-center items-center h-[70vh]">
+        <Spin size="large" />
+      </div>
+    );
   }
 
   return (

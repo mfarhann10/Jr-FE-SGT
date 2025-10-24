@@ -12,11 +12,10 @@ interface ProductResponse {
 }
 
 interface SingleProductResponse {
-  error_code: string;
-  is_success: boolean;
-  status_code: string;
+  error_code?: string;
+  is_success?: boolean;
+  status_code?: string;
   data: Product;
-  pagination: ProductListParams;
 }
 
 export type ProductPayload = Omit<
@@ -25,7 +24,7 @@ export type ProductPayload = Omit<
 >;
 
 const axiosClient: AxiosInstance = axios.create({
-  baseURL: "/api",
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
@@ -65,10 +64,10 @@ export const getProducts = async (
 export const getSingleProduct = async (
   product_id: string
 ): Promise<Product> => {
-  const { data } = await axiosClient.get<SingleProductResponse>(
+  const { data } = await axiosClient.get<Product>(
     `/product?product_id=${product_id}`
   );
-  return data.data;
+  return data;
 };
 
 export const createProduct = async (
