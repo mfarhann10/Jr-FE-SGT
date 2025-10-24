@@ -8,10 +8,15 @@ export async function GET(req: Request) {
     const limit = Number(searchParams.get("limit")) || 10;
     const search = searchParams.get("search") || "";
 
-    // Panggil backend API lewat axiosServer
-    const products = await getProducts({ page, limit, search });
+    const response = await getProducts({ page, limit, search });
 
-    return NextResponse.json(products, { status: 200 });
+    return NextResponse.json(
+      {
+        data: response.data,
+        pagination: response.pagination,
+      },
+      { status: 200 }
+    );
   } catch (error: any) {
     console.error("Error in /api/products:", error);
     return NextResponse.json(
@@ -20,3 +25,4 @@ export async function GET(req: Request) {
     );
   }
 }
+

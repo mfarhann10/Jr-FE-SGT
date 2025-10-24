@@ -4,10 +4,14 @@ import { getProducts } from "../_lib/axiosClient";
 import { ProductListParams } from "../types/product";
 
 export const useGetProducts = (params: Partial<ProductListParams>) => {
-  const { data: products, isPending: isGetProducts } = useQuery({
+  const { data, isPending: isGetProducts } = useQuery({
     queryKey: ["products", params],
     queryFn: () => getProducts(params),
   });
 
-  return { products, isGetProducts };
+  return {
+    products: data?.data || [],
+    pagination: data?.pagination,
+    isGetProducts,
+  };
 };

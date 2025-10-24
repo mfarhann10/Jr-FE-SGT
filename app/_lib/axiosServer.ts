@@ -43,11 +43,11 @@ axiosServer.interceptors.response.use(
 
 export const getProducts = async (
   params?: Partial<ProductListParams>
-): Promise<Product[]> => {
+): Promise<ProductResponse> => {
   const { data } = await axiosServer.get<ProductResponse>("/products", {
     params,
   });
-  return data.data;
+  return data;
 };
 
 export const getSingleProduct = async (

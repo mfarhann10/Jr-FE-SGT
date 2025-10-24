@@ -4,9 +4,9 @@ import axios from "axios";
 import { Product, ProductListParams } from "../types/product";
 
 interface ProductResponse {
-  error_code: string;
-  is_success: boolean;
-  status_code: string;
+  error_code?: string;
+  is_success?: boolean;
+  status_code?: string;
   data: Product[];
   pagination: ProductListParams;
 }
@@ -43,17 +43,26 @@ axiosClient.interceptors.response.use(
 
 export const getProducts = async (
   params?: Partial<ProductListParams>
-): Promise<Product[]> => {
+): Promise<ProductResponse> => {
   try {
     const { data } = await axiosClient.get<ProductResponse>("/products", {
       params,
     });
-    return data?.data ?? data ?? [];
+
+    return {
+      data: data.data ?? [],
+      pagination: data.pagination,
+    };
   } catch (error) {
-    console.error("❌ Failed to fetch products:", error);
-    return [];
+    console.error("Failed to fetch products:", error);
+    return {
+      data: [],
+      pagination: { page: 1, limit: 10, total: 0, total_pages: 0, search: "" },
+    };
   }
 };
+
+
 
 export const getSingleProduct = async (
   product_id: string
