@@ -1,14 +1,13 @@
-import { useQuery } from "@tanstack/react-query"
-import { ProductListParams } from "../types/product"
-import { getProducts } from "../_lib/axiosClient"
+"use client";
+import { useQuery } from "@tanstack/react-query";
+import { getProducts } from "../_lib/axiosClient";
+import { ProductListParams } from "../types/product";
 
-export const useGetProducts = (params: ProductListParams) => {
-  const {page, limit, offset, search} = params
-
-  const {data: products, isPending: isGetProducts} = useQuery({
-    queryKey: ["products", {page, limit, offset, search}],
+export const useGetProducts = (params: Partial<ProductListParams>) => {
+  const { data: products, isPending: isGetProducts } = useQuery({
+    queryKey: ["products", params],
     queryFn: () => getProducts(params),
-  })
+  });
 
-  return {products, isGetProducts}
-}
+  return { products, isGetProducts };
+};

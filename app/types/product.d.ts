@@ -10,8 +10,8 @@ updated_timestamp: string;
 }
 
 export interface ProductListParams {
-page: number;// Current page number
-limit: number;// Items per page
-offset: number;// Calculate from page & limit
-search?: string;// Search term
+  page: number; // Current page number
+  limit: number; // Items per page
+  offset?: number; // Calculate from page & limit
+  search?: string; // Search term
 }
