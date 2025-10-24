@@ -9,7 +9,7 @@ export default function Home() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      router.replace("/products");
+      router.replace("/product");
     }, 1000); // sedikit delay biar smooth
 
     return () => clearTimeout(timer);
