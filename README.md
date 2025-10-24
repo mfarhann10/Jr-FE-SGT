@@ -1,6 +1,6 @@
 # 🛍️ Product Management Dashboard
 
-A modern **Product Management Dashboard** built with **Next.js 14**, **Ant Design**, **Tailwind CSS**, **Zustand**, and **TanStack React Query**.  
+A modern **Product Management Dashboard** built with **Next.js 14**, **Ant Design**, **Tailwind CSS**, **React State Management**, and **TanStack React Query**.  
 This project allows users to **view, search, create, edit, and delete products** with smooth UI interaction and API integration.
 
 ---
