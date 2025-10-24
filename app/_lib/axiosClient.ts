@@ -62,8 +62,6 @@ export const getProducts = async (
   }
 };
 
-
-
 export const getSingleProduct = async (
   product_id: string
 ): Promise<Product> => {

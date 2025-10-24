@@ -43,12 +43,13 @@ export async function POST(req: Request) {
 
 export async function PUT(req: Request) {
   try {
-    const body = await req.json();
-    const { product_id, ...payload } = body;
+    const { searchParams } = new URL(req.url);
+    const product_id = searchParams.get("product_id");
+    const payload = await req.json();
 
     if (!product_id) {
       return NextResponse.json(
-        { message: "Missing product_id" },
+        { message: "Missing product_id in query" },
         { status: 400 }
       );
     }
