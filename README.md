@@ -47,7 +47,7 @@ This project allows users to **view, search, create, edit, and delete products**
 ## 🧠 Application Flow
 
 1. **Page Load**
-   - `useQuery` fetches product list from backend API.
+   - `useQuery` fetches product list from Next API.
 2. **Search**
    - User types in the search bar.
    - Input is **debounced (500ms)** to reduce API calls.
