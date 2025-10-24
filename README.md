@@ -38,9 +38,9 @@ This project allows users to **view, search, create, edit, and delete products**
 
 
 ### 🧭 Navigation & Routing
-- `/product` as main page (default route)
+- `/product` as main page 
 - `/product/[id]` for product detail page with image preview and metadata
-- Protected routes (in progress / planned feature)
+
 
 ---
 
