@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛍️ Product Management Dashboard
 
-## Getting Started
+A modern **Product Management Dashboard** built with **Next.js 14**, **Ant Design**, **Tailwind CSS**, **Zustand**, and **TanStack React Query**.  
+This project allows users to **view, search, create, edit, and delete products** with smooth UI interaction and API integration.
 
-First, run the development server:
+---
 
+## 🚀 Tech Stack
+
+- **Framework:** [Next.js 14 (App Router)](https://nextjs.org/)
+- **UI Library:** [Ant Design](https://ant.design/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Form Management:** [Ant Design](https://ant.design/)
+- **Data Fetching:** [TanStack React Query](https://tanstack.com/query/latest)
+- **HTTP Client:** [Axios](https://axios-http.com/)
+- **Utility:** [Lodash (debounce)](https://lodash.com/)
+- **TypeScript:** for static type checking and maintainability
+
+---
+
+## 💡 Features
+
+### 🔍 Product Management
+- View product list in a responsive **Ant Design Table**
+- **Search** products by:
+  - `product_title`
+  - `product_description`
+  - `product_category`
+- **Pagination** with dynamic page number
+- **Loading** and **empty state** indicators
+- **Fallback image** when `product_image` is `null`
+
+### ➕ Create & Edit Product
+- Create new product using **Ant Design Modal Form**
+- Edit existing product in a modal with prefilled data
+- Form validation handled by **Ant Design Form**
+- Automatic refetch after create/edit using **React Query invalidation**
+
+
+### 🧭 Navigation & Routing
+- `/product` as main page (default route)
+- `/product/[id]` for product detail page with image preview and metadata
+- Protected routes (in progress / planned feature)
+
+---
+
+## 🧠 Application Flow
+
+1. **Page Load**
+   - `useQuery` fetches product list from backend API.
+2. **Search**
+   - User types in the search bar.
+   - Input is **debounced (500ms)** to reduce API calls.
+   - Query refetches product data matching search keywords.
+3. **Create / Edit**
+   - User opens modal → fills form → submits.
+   - On success → closes modal and triggers query refetch.
+4. **Detail Page**
+   - Displays product image, title, category, description.
+   - If `product_image` is null → shows fallback `/placeholder.png`.
+
+---
+
+## ⚙️ Getting Started
+
+### 1. Install dependencies
 ```bash
-npm run dev
+npm install
 # or
-yarn dev
+yarn install
 # or
-pnpm dev
+pnpm install
 # or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+bun install
