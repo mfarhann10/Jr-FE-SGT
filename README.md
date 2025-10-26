@@ -34,7 +34,7 @@ This project allows users to **view, search, create, and edit products** with sm
 - Create new product using **Ant Design Modal Form**
 - Edit existing product in a modal with prefilled data
 - Form validation handled by **Ant Design Form**
-- Automatic refetch after create/edit using **React Query invalidation**
+- Automatic refetch after create/edit using **Tanstack Query invalidation**
 
 
 ### 🧭 Navigation & Routing
@@ -57,7 +57,7 @@ This project allows users to **view, search, create, and edit products** with sm
    - On success → closes modal and triggers query refetch.
 4. **Detail Page**
    - Displays product image, title, category, description.
-   - If `product_image` is null → shows fallback `/placeholder.png`.
+   - If `product_image` is null → shows fallback No Image.
 
 ---
 
